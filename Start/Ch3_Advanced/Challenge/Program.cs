@@ -29,7 +29,22 @@ namespace Challenge
 
         // TODO: Implement the CheckBalanced method
         static bool CheckBalanced(string TestStatement) {
-            // TODO: Put your logic here
+            Stack<char> charStack = new Stack<char>();
+            foreach (char ch in TestStatement) {
+                if (ch == '{' || ch == '[' || ch == '(')
+                {
+                    charStack.Push(ch);
+                }
+
+                if (ch == '}' || ch == ']' || ch == ')' ) {
+                    if (charStack.Count == 0) { return false; }
+                    char testChar = charStack.Pop();
+                    if (ch == ')' && testChar != '(') { return false; }
+                    if (ch == '}' && testChar != '{') { return false; }
+                    if (ch == ']' && testChar != '[') { return false; }
+                }
+            }
+            if (charStack.Count > 0) {return false; }
             
             return true;
         }
